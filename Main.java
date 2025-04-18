@@ -3,12 +3,15 @@ import nodes.activation;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Scanner;
 import java.util.Timer;
 import javax.swing.*;
 import java.awt.*;
 import java.util.TimerTask;
 
 public class Main {
+    public static boolean wait=false;
+    public static Scanner IN=new Scanner(System.in);
     public static double x=21;
     public static double x2=30;
     public static JFrame main=new JFrame();
@@ -17,6 +20,8 @@ public class Main {
     public static Friendly bulbasaur=new Friendly("grass",314,"001");
     public static void main(String args[]){
         new Moves();
+        thread2 e=new thread2();
+        e.start();
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 
             @Override
@@ -27,7 +32,7 @@ public class Main {
                             x = 0;
                             x2 = 0;
                         }else if(ke.getKeyCode() == KeyEvent.VK_1){
-                            out.setText(bulbasaur.doMove(squirtle,"leaf blade"));
+                            out.setText(bulbasaur.doMove(squirtle,bulbasaur.movesList.get(0)));
                             x=0;
                             x2=0;
                         }else if(ke.getKeyCode() == KeyEvent.VK_2){
@@ -49,6 +54,7 @@ public class Main {
         main.setLayout(null);
         main.setExtendedState(JFrame.MAXIMIZED_BOTH);
         main.setUndecorated(true);
+        bulbasaur.movesList.add("leaf_blade");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth()/100.0;
         double height = screenSize.getHeight()/100.0;
@@ -69,27 +75,29 @@ public class Main {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                squirtle.setBounds((int) (Math.sin(Main.x)*20*(1-0.05*x))+(int) (60*width)-50,(int) (30*height)-200,400,400);
-                bulbasaur.setBounds((int) (Math.sin(Main.x2)*20*(1-0.05*x2))+(int) (10*width)-50, (int) (69.5*height)-225, 400, 225);
-                if(x<20) {
-                    Main.x += 2;
+                if (!wait) {
+                    squirtle.setBounds((int) (Math.sin(Main.x) * 20 * (1 - 0.05 * x)) + (int) (60 * width) - 50, (int) (30 * height) - 200, 400, 400);
+                    bulbasaur.setBounds((int) (Math.sin(Main.x2) * 20 * (1 - 0.05 * x2)) + (int) (10 * width) - 50, (int) (69.5 * height) - 225, 400, 225);
+                    if (x < 20) {
+                        Main.x += 2;
+                    }
+                    if (x == 20) {
+                        out.setText(squirtle.doMove(bulbasaur, "water_gun"));
+                        x++;
+                    }
+                    if (x2 < 20 && x == 21) {
+                        Main.x2 += 2;
+                    }
+                    if (bulbasaur.health <= 0) {
+                        main.remove(bulbasaur);
+                        out.setText("bulbasaur fainted!");
+                    }
+                    if (squirtle.health <= 0) {
+                        main.remove(squirtle);
+                        out.setText("squirtle fainted!");
+                    }
+                    main.repaint();
                 }
-                if(x==20){
-                    out.setText(squirtle.doMove(bulbasaur,"water gun"));
-                    x++;
-                }
-                if(x2<20&&x==21) {
-                    Main.x2 += 2;
-                }
-                if(bulbasaur.health<=0){
-                    main.remove(bulbasaur);
-                    out.setText("bulbasaur fainted!");
-                }
-                if(squirtle.health<=0){
-                    main.remove(squirtle);
-                    out.setText("squirtle fainted!");
-                }
-                main.repaint();
             }
         }, 25, 25);
         /*

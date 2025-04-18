@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * the parent class for enemy Pokémon and friendly Pokémon.
@@ -16,6 +18,7 @@ public class Pokemon extends JComponent {
     public BufferedImage image;
     public final String name;
     public String friendliness;
+    public List<String> movesList=new ArrayList<>();
     private static final String[] types={"grass","fire","water","electric"};
     public Pokemon(String _Type,int _Health,String name,Boolean isEnemy,Boolean isFriendly) {
         this.name=name;

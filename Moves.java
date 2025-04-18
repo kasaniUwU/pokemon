@@ -15,8 +15,8 @@ public class Moves {
     public Moves(){
         MoveList.put("nuke",(a,b,c)->{a.health-=1000000; return "Its so effective, everyone is dead!";});
         MoveList.put("thunderbolt",(a,b,c)->{a.health-=1000000; return "Its so effective, everyone is dead!";});
-        MoveList.put("leaf blade",(a,b,c)->{a.health-= (int) (90+c*0.1*90+90*(Math.random()-0.5)*0.1); return "";});
-        MoveList.put("water gun",(a,b,c)->{a.health-= (int) (40+c*1*40+40*(Math.random()-0.5)*2); return "";});
+        MoveList.put("leaf_blade",(a,b,c)->{a.health-= (int) (90+c*0.1*90+90*(Math.random()-0.5)*0.1); return "";});
+        MoveList.put("water_gun",(a,b,c)->{a.health-= (int) (40+c*1*40+40*(Math.random()-0.5)*2); return "";});
         MoveList.put("heal",(a,b,c)->{b.health+= 50; return "healed";});
         strongTo.put("grass",new String[] {"water"});
         strongTo.put("water",new String[] {"fire"});
