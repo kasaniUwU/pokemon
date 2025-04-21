@@ -1,3 +1,4 @@
+DISCLAMER: i dont own rights to anything here
 how to install:\
 [go here](https://github.com/kasaniUwU/pokemon/blob/master/pokemon.jar)\
 click the button that looks like this:\
